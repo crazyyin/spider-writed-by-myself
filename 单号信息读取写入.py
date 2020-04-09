@@ -115,7 +115,7 @@ class Company(object):
                 "money_id": self.money_id, "ke_shi": self.ke_shi}
 
     def login_res(self, name, password):
-        login_url = 'http://hy.ayqiandu.net/index/login/index.html'
+        login_url = 'WEB_LINKindex/login/index.html'
         formData = {'uname': name, 'passwd': password}
         hea = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) PhantomJS/41.0.2272.118 Safari/537.36'}
@@ -124,8 +124,8 @@ class Company(object):
         return s
 
     def get_moey_id(self):
-        s = self.login_res("0188", "0123456789")
-        html = s.get('http://hy.ayqiandu.net/index/caiwu/index.html?bumen_id=&user_id=&zt=&xm=&wjfh=' + str(
+        s = self.login_res(user_number, password)
+        html = s.get('WEB_LINKindex/caiwu/index.html?bumen_id=&user_id=&zt=&xm=&wjfh=' + str(
             self.number) + '&cwshsj=&cwshsjend=').text
         soup = BeautifulSoup(html, features="lxml")
 
@@ -159,11 +159,11 @@ class Company(object):
 
     def get_cai_wu_shu_ju(self):
         money_id = self.money_id
-        s = self.login_res("0188", "0123456789")
+        s = self.login_res(user_number, password)
 
         def get_values(money_id, s):
             value = []
-            html = s.get('http://hy.ayqiandu.net/index/caiwu/info/id/' + str(money_id) + '.html').text
+            html = s.get('WEB_LINKindex/caiwu/info/id/' + str(money_id) + '.html').text
             soup = BeautifulSoup(html, features="lxml")
             tbodys = soup.find_all('tbody')
             # 下头这俩大兄弟是入金和出金的容纳表格
@@ -227,11 +227,11 @@ class Company(object):
     def get_company_value(self):
         money_id = self.get_moey_id()[0]
         print(money_id)
-        s = self.login_res("0188", "0123456789")
+        s = self.login_res(user_number, password)
 
         def get_values(money_id, s):
             value = []
-            html = s.get('http://hy.ayqiandu.net/index/caiwu/info/id/' + str(money_id) + '.html').text
+            html = s.get('WEB_LINKindex/caiwu/info/id/' + str(money_id) + '.html').text
             soup = BeautifulSoup(html, features="lxml")
             tbodys = soup.find_all('tbody')
             # 下头这俩大兄弟是入金和出金的容纳表格
@@ -250,10 +250,10 @@ class Company(object):
 
     def AD_upload(self, money, date, driver, name):
 
-        s = self.login_res('账号', '密码')
+        s = self.login_res('0188', '0123456789')
         money_id = self.money_id
 
-        driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(money_id) + ".html")
+        driver.get("WEB_LINKindex/caiwu/info/id/" + str(money_id) + ".html")
         # 下面两部进入添加界面
         tds = driver.find_elements_by_tag_name("td")
         if tds[0].text == "190107":
@@ -304,14 +304,14 @@ class Company(object):
 
     def agency_fee_upload(self, money, date, driver):
 
-        s = self.login_res('账号', '密码')
+        s = self.login_res('0188', '0123456789')
         money_id = self.money_id
 
         if money_id == "该订单未上传":
             pass
         else:
 
-            driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(money_id) + ".html")
+            driver.get("WEB_LINKindex/caiwu/info/id/" + str(money_id) + ".html")
             # 下面两部进入添加界面
             cai_wu_sheng_qing = driver.find_element_by_link_text("添加财务申请")
             cai_wu_sheng_qing.click()
@@ -358,7 +358,7 @@ class Company(object):
 
     def refund_upload(self, money, date, driver):
 
-        s = self.login_res('账号', '密码')
+        s = self.login_res('0188', '0123456789')
         money_id = self.money_id
 
         if money_id == "该订单未上传":
@@ -370,7 +370,7 @@ class Company(object):
             if self.role == "	兼职":
                 pass
             else:
-                driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(money_id) + ".html")
+                driver.get("WEB_LINKindex/caiwu/info/id/" + str(money_id) + ".html")
                 # 下面两部进入添加界面
                 cai_wu_sheng_qing = driver.find_element_by_link_text("添加财务申请")
                 cai_wu_sheng_qing.click()
@@ -408,14 +408,14 @@ class Company(object):
 
     def affair_upload(self, date, driver):
 
-        s = self.login_res('账号', '密码')
+        s = self.login_res('0188', '0123456789')
         money_id = self.money_id
 
         if money_id == "该订单未上传":
             pass
         else:
 
-            driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(money_id) + ".html")
+            driver.get("WEB_LINKindex/caiwu/info/id/" + str(money_id) + ".html")
             # 下面两部进入添加界面
             cai_wu_sheng_qing = driver.find_element_by_link_text("添加财务申请")
             cai_wu_sheng_qing.click()
@@ -613,7 +613,7 @@ class Company(object):
                 if self.values[i][0] == "中介费":
                     id = self.values[i][7]
                     check_person = self.values[i][6]
-                    driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(self.money_id) + ".html")
+                    driver.get("WEB_LINKindex/caiwu/info/id/" + str(self.money_id) + ".html")
                     btns = driver.find_elements_by_tag_name("button")
             if check_person == "":
                 for i in range(len(btns)):
@@ -647,7 +647,7 @@ class Company(object):
                         id = self.values[i][7]
                         check_person = self.values[i][6]
 
-                    driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(self.money_id) + ".html")
+                    driver.get("WEB_LINKindex/caiwu/info/id/" + str(self.money_id) + ".html")
                     btns = driver.find_elements_by_tag_name("button")
             if check_person == "":
                 for i in range(len(btns)):
@@ -680,7 +680,7 @@ class Company(object):
                 if self.values[i][0] == "返金":
                     id = self.values[i][7]
                     check_person = self.values[i][6]
-                    driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(self.money_id) + ".html")
+                    driver.get("WEB_LINKindex/caiwu/info/id/" + str(self.money_id) + ".html")
                     btns = driver.find_elements_by_tag_name("button")
             if check_person == "":
                 for i in range(len(btns)):
@@ -705,7 +705,7 @@ class Company(object):
                         break
 
     def check_final(self, driver):
-        driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(self.money_id) + ".html")
+        driver.get("WEB_LINKindex/caiwu/info/id/" + str(self.money_id) + ".html")
         kind = driver.find_element_by_id('selectkhzt')
         kind_lei = Select(kind)
         kind_lei.select_by_index(1)
@@ -716,8 +716,8 @@ class Company(object):
         time.sleep(5)
 
     def get_customer_id(self):
-        s = self.login_res("0188", "0123456789")
-        html = s.get("http://hy.ayqiandu.net/index/shenqing/index.html?user_id=&khlb=&wjfh=" + str(
+        s = self.login_res(user_number, password)
+        html = s.get("WEB_LINKindex/shenqing/index.html?user_id=&khlb=&wjfh=" + str(
             self.number) + "&wujianming=&xm=&glgsdh=&glgsm=&shengri=").text
         soup = BeautifulSoup(html, features="lxml")
 
@@ -737,7 +737,7 @@ class Company(object):
         return ['该订单未上传', '', '', '该订单未上传或读取问题']
 
     def check_user_statues(self, driver):
-        driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(self.money_id) + ".html")
+        driver.get("WEB_LINKindex/caiwu/info/id/" + str(self.money_id) + ".html")
         kind = driver.find_element_by_id('selectkhzt')
         kind_lei = Select(kind)
         kind_lei.select_by_index(1)
@@ -754,8 +754,8 @@ class Company(object):
     # 想获取更多客户管理系统就在这里更改吧
     def get_client_system_values(self):
 
-        s = self.login_res("0188", "0123456789")
-        html = s.get("http://hy.ayqiandu.net/index/shenqing/info/id/" + str(self.customer_id) + ".html").text
+        s = self.login_res(user_number, password)
+        html = s.get("WEB_LINKindex/shenqing/info/id/" + str(self.customer_id) + ".html").text
         soup = BeautifulSoup(html, features="lxml")
 
         apply_money_statues = soup.find_all("select")[4].find_all("option")
@@ -775,7 +775,7 @@ class Company(object):
         return [apply_statues, money, ps, fan_jin, AD_statue, angency_fee, rent, management_fee]
 
 def login_res(name, password):
-    login_url = 'http://hy.ayqiandu.net/index/login/index.html'
+    login_url = 'WEB_LINKindex/login/index.html'
     formData = {'uname': name, 'passwd': password}
     hea = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) PhantomJS/41.0.2272.118 Safari/537.36'}
@@ -783,10 +783,10 @@ def login_res(name, password):
     s.post(login_url, data=formData, headers=hea)
     return s
 
-s=login_res("0188",'0123456789')
+s=login_res(user_number,'0123456789')
 result={}
 for i in range(1,71):
-    html=s.get("http://hy.ayqiandu.net/index/caiwu/index.html?page="+str(i)).text
+    html=s.get("WEB_LINKindex/caiwu/index.html?page="+str(i)).text
     soup = BeautifulSoup(html, features="lxml")
     tds=soup.find_all(name="td")
     for j in range(len(tds)):
