@@ -250,7 +250,7 @@ class Company(object):
 
     def AD_upload(self, money, date, driver, name):
 
-        s = self.login_res('0188', '0123456789')
+        s = self.login_res('账号', '密码')
         money_id = self.money_id
 
         driver.get("http://hy.ayqiandu.net/index/caiwu/info/id/" + str(money_id) + ".html")
@@ -304,7 +304,7 @@ class Company(object):
 
     def agency_fee_upload(self, money, date, driver):
 
-        s = self.login_res('0188', '0123456789')
+        s = self.login_res('账号', '密码')
         money_id = self.money_id
 
         if money_id == "该订单未上传":
@@ -358,7 +358,7 @@ class Company(object):
 
     def refund_upload(self, money, date, driver):
 
-        s = self.login_res('0188', '0123456789')
+        s = self.login_res('账号', '密码')
         money_id = self.money_id
 
         if money_id == "该订单未上传":
@@ -408,7 +408,7 @@ class Company(object):
 
     def affair_upload(self, date, driver):
 
-        s = self.login_res('0188', '0123456789')
+        s = self.login_res('账号', '密码')
         money_id = self.money_id
 
         if money_id == "该订单未上传":
